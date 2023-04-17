@@ -1,2 +1,3 @@
-# gss_abortion
-An Exercise in Life Course Change &amp; Attitudes
+# Replication: Family Formation and Abortion Attitudes
+
+This repository provides the replication files for the paper Family Formation and Abortion Attitudes: An Analysis with the GSS Panels, co-authored with Emilio Lopez Horner. The paper is stored in SocArXiv.
