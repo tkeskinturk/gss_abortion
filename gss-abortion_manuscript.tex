@@ -1,0 +1,225 @@
+% Options for packages loaded elsewhere
+\PassOptionsToPackage{unicode}{hyperref}
+\PassOptionsToPackage{hyphens}{url}
+%
+\documentclass[
+]{article}
+\usepackage{amsmath,amssymb}
+\usepackage{lmodern}
+\usepackage{iftex}
+\ifPDFTeX
+  \usepackage[T1]{fontenc}
+  \usepackage[utf8]{inputenc}
+  \usepackage{textcomp} % provide euro and other symbols
+\else % if luatex or xetex
+  \usepackage{unicode-math}
+  \defaultfontfeatures{Scale=MatchLowercase}
+  \defaultfontfeatures[\rmfamily]{Ligatures=TeX,Scale=1}
+\fi
+% Use upquote if available, for straight quotes in verbatim environments
+\IfFileExists{upquote.sty}{\usepackage{upquote}}{}
+\IfFileExists{microtype.sty}{% use microtype if available
+  \usepackage[]{microtype}
+  \UseMicrotypeSet[protrusion]{basicmath} % disable protrusion for tt fonts
+}{}
+\makeatletter
+\@ifundefined{KOMAClassName}{% if non-KOMA class
+  \IfFileExists{parskip.sty}{%
+    \usepackage{parskip}
+  }{% else
+    \setlength{\parindent}{0pt}
+    \setlength{\parskip}{6pt plus 2pt minus 1pt}}
+}{% if KOMA class
+  \KOMAoptions{parskip=half}}
+\makeatother
+\usepackage{xcolor}
+\usepackage[margin=1in]{geometry}
+\usepackage{longtable,booktabs,array}
+\usepackage{calc} % for calculating minipage widths
+% Correct order of tables after \paragraph or \subparagraph
+\usepackage{etoolbox}
+\makeatletter
+\patchcmd\longtable{\par}{\if@noskipsec\mbox{}\fi\par}{}{}
+\makeatother
+% Allow footnotes in longtable head/foot
+\IfFileExists{footnotehyper.sty}{\usepackage{footnotehyper}}{\usepackage{footnote}}
+\makesavenoteenv{longtable}
+\usepackage{graphicx}
+\makeatletter
+\def\maxwidth{\ifdim\Gin@nat@width>\linewidth\linewidth\else\Gin@nat@width\fi}
+\def\maxheight{\ifdim\Gin@nat@height>\textheight\textheight\else\Gin@nat@height\fi}
+\makeatother
+% Scale images if necessary, so that they will not overflow the page
+% margins by default, and it is still possible to overwrite the defaults
+% using explicit options in \includegraphics[width, height, ...]{}
+\setkeys{Gin}{width=\maxwidth,height=\maxheight,keepaspectratio}
+% Set default figure placement to htbp
+\makeatletter
+\def\fps@figure{htbp}
+\makeatother
+\setlength{\emergencystretch}{3em} % prevent overfull lines
+\providecommand{\tightlist}{%
+  \setlength{\itemsep}{0pt}\setlength{\parskip}{0pt}}
+\setcounter{secnumdepth}{-\maxdimen} % remove section numbering
+\newlength{\cslhangindent}
+\setlength{\cslhangindent}{1.5em}
+\newlength{\csllabelwidth}
+\setlength{\csllabelwidth}{3em}
+\newlength{\cslentryspacingunit} % times entry-spacing
+\setlength{\cslentryspacingunit}{\parskip}
+\newenvironment{CSLReferences}[2] % #1 hanging-ident, #2 entry spacing
+ {% don't indent paragraphs
+  \setlength{\parindent}{0pt}
+  % turn on hanging indent if param 1 is 1
+  \ifodd #1
+  \let\oldpar\par
+  \def\par{\hangindent=\cslhangindent\oldpar}
+  \fi
+  % set entry spacing
+  \setlength{\parskip}{#2\cslentryspacingunit}
+ }%
+ {}
+\usepackage{calc}
+\newcommand{\CSLBlock}[1]{#1\hfill\break}
+\newcommand{\CSLLeftMargin}[1]{\parbox[t]{\csllabelwidth}{#1}}
+\newcommand{\CSLRightInline}[1]{\parbox[t]{\linewidth - \csllabelwidth}{#1}\break}
+\newcommand{\CSLIndent}[1]{\hspace{\cslhangindent}#1}
+\usepackage{booktabs}
+\usepackage{longtable}
+\usepackage{array}
+\usepackage{multirow}
+\usepackage{wrapfig}
+\usepackage{float}
+\usepackage{colortbl}
+\usepackage{pdflscape}
+\usepackage{tabu}
+\usepackage{threeparttable}
+\usepackage{threeparttablex}
+\usepackage[normalem]{ulem}
+\usepackage{makecell}
+\usepackage{xcolor}
+\usepackage{siunitx}
+
+  \newcolumntype{d}{S[
+    input-open-uncertainty=,
+    input-close-uncertainty=,
+    parse-numbers = false,
+    table-align-text-pre=false,
+    table-align-text-post=false
+  ]}
+  
+\ifLuaTeX
+  \usepackage{selnolig}  % disable illegal ligatures
+\fi
+\IfFileExists{bookmark.sty}{\usepackage{bookmark}}{\usepackage{hyperref}}
+\IfFileExists{xurl.sty}{\usepackage{xurl}}{} % add URL line breaks if available
+\urlstyle{same} % disable monospaced font for URLs
+\hypersetup{
+  pdfauthor={Emilio Lopez Horner; Turgut Keskintürk},
+  hidelinks,
+  pdfcreator={LaTeX via pandoc}}
+
+\title{Family Formation and Abortion Attitudes:\\
+An Analysis with the GSS Panels}
+\author{Emilio Lopez Horner\footnote{Department of Communications, University of North Carolina, Chapel Hill, \texttt{emilio\_horner@unc.edu}.} \and Turgut Keskintürk\footnote{Department of Sociology, Duke University, \texttt{turgut.keskinturk@duke.edu}.}}
+\date{2023-04-17}
+
+\begin{document}
+\maketitle
+\begin{abstract}
+We ask whether having a child or marrying for the first time affects one's attitudinal position on the legality of abortion debate. Using two-way fixed-effects regression models in the 2006-2014 General Social Survey panel data, we show that there is no such effect for women, and only slight effects for men.
+\end{abstract}
+
+\hypertarget{introduction}{%
+\section{Introduction}\label{introduction}}
+
+We ask a simple question: do family formation events affect abortion attitudes? Studies in cultural sociology suggest that personal cultural change, particularly when it comes to core beliefs, is fairly low among adults (Kiley and Vaisey 2020), though life-course transitions can modulate individual beliefs (Lersch 2023). One such life transition is family formation, which is probably tied to cultural beliefs about family, sexuality, and morality. If life-course transitions change one's phenomenological understanding of the world, forming a family for the first time might function as an individual treatment.
+
+We focus on the legality of abortion debate, a particularly contentious issue both in the United States and the world. Strongly tied to ideological position, abortion attitudes have remained fairly stable over time in the General Social Survey (Marsden, Smith, and Hout 2020), but we know little about whether biographical experiences such as having a child or marrying for the first time change an individual's abortion attitudes. In this note, we test this question. We expect that the first experiences in family formation (marrying for the first time or having a child for the first time) might change one's beliefs about abortion.
+
+\hypertarget{data-and-measures}{%
+\section{Data and Measures}\label{data-and-measures}}
+
+To test this expectation, we used three waves of panel data from the General Social Survey (GSS). In 2006, 2008 and 2010, GSS sampled three cohorts of US adults, each of which was a representative sample of the US population, and surveyed these cohorts three times over four years. In all surveys, a set of respondents answered questions about their abortion attitudes, as well as personal demographics, including marriage and parenthood. We pooled these three cohorts together, with a final \emph{N} of 2,790 participants. During these four years, 122 (4.3\%) of these respondents reported that they had a child for the first time (answering the question \texttt{childs}\footnote{The GSS question we used, \texttt{childs}, is as follows: How many children have you ever had? Please count all that were born alive at any time (including any you had from a previous marriage).}), while 124 (4.4\%) of the respondents reported that they married for the first time. In total, 219 respondents went through a family formation experience (27 of whom reported both first-marriage and first-birth). We recoded these variables such that if a respondent reported first marriage and first birth before, they were counted as such in the subsequent waves.\footnote{A handful of respondents changed their responses over time (e.g., reporting a child in Wave 1 but not reporting it afterwards). This error might result from various factors. We decided to use all the information we have.}
+
+Following Hout and Hastings (2016), we constructed an abortion scale by using 7 abortion variables (see \texttt{abdefect}, \texttt{abhlth}, \texttt{abnomore}, \texttt{abpoor}, \texttt{abrape}, \texttt{absingle} and \texttt{abany} in the GSS variable set). Similar results replicate if we use the 6-item scale (dropping the \texttt{abany} item) or if we just look at the \texttt{abany} item (abortion with \emph{any reason}). In what follows, we report the results from this 7-item scale, which ranges from 0 to 1 and higher values indicate pro-choice positions on abortion.
+
+In order to provide a conservative test, we estimated a series of fixed-effects regression models (Allison 2009; Halaby 2004) across two samples, separated as females and males. The payoff from this strategy is that we remove all time-constant variables from our consideration, which allows us to stringently see whether a within-person change in first marriage and first birth facilitates a within-person change in abortion attitudes. The cost is, of course, the reduced statistical efficiency that results from not using the between-person variation. Given that power issues might exacerbate these conservative estimations, we urge that the following results should be seen as highly conservative.
+
+One problem that might contaminate our results is \emph{endogenous selection.} It is possible that one's abortion attitudes might leak through the treatment (e.g., the abortion attitudes at Wave 2 can affect family formation behavior at Wave 3). Following Vaisey and Miles (2017), we test this assumption by estimating the following models. If there is indeed endogenous selection, we should observe that \(\beta\) is reliably different than 0, which would then necessitate that we abandon fixed effects estimation.
+
+\[
+\begin{aligned}
+EverBirth_3 &= \alpha + \beta Abortion_2 + \tau (Abortion_1 + Abortion_2) + \epsilon
+\\
+EverMarry_3 &= \alpha + \beta Abortion_2 + \tau (Abortion_1 + Abortion_2) + \epsilon
+\end{aligned}
+\]
+
+The \(\beta\) coefficients from linear probability models is 0.06 for \(EverBirth_3\) (95\% CI: -0.09, 0.22), and -0.05 for \(EverMarry_3\) (95\% CI: -0.20, 0.09), showing that there is no specific selection mechanism.
+
+\hypertarget{results}{%
+\section{Results}\label{results}}
+
+Table 1 shows the fixed effects estimates, documenting that there are no substantial effects of first marriage or first birth on abortion attitudes.\footnote{Replication code for the analyses can be found at \url{https://github.com/tkeskinturk/gss_abortion}.} The estimates are imprecise and the effect sizes are highly small, both in female and male samples. The exception is the effect of marriage for male respondents, which is negative and reliably different than 0 at the 95\% level, though the effect size is, once again, quite small.\footnote{In another specification, we estimated within-between models by specifying respondent sex as a cross-level interaction. BIC for the interaction models were lower than the ones without interaction (1425 \textless{} 1445 for Birth and 1449 \textless{} 1464 for Marriage).}
+
+\begin{table}[H]
+
+\caption{\label{tab:reg}Fixed Effects Regression Models Estimating Abortion Attitudes.}
+\centering
+\begin{tabular}[t]{lcccccc}
+\toprule
+  & F: Birth & F: Marriage & F: Both & M: Birth & M: Marriage & M: Both\\
+\midrule
+(Intercept) & \num{0.601} & \num{0.602} & \num{0.602} & \num{0.646} & \num{0.646} & \num{0.645}\\
+ & (\num{0.009}) & (\num{0.009}) & (\num{0.009}) & (\num{0.009}) & (\num{0.009}) & (\num{0.009})\\
+Ever-Birth & \num{-0.027} &  & \num{-0.021} & \num{0.012} &  & \num{0.020}\\
+ & (\num{0.030}) &  & (\num{0.031}) & (\num{0.028}) &  & (\num{0.029})\\
+Ever-Marriage &  & \num{-0.027} & \num{-0.024} &  & \num{-0.062} & \num{-0.074}\\
+ &  & (\num{0.028}) & (\num{0.028}) &  & (\num{0.029}) & (\num{0.030})\\
+SD (Intercept) & \num{0.324} & \num{0.324} & \num{0.324} & \num{0.298} & \num{0.298} & \num{0.298}\\
+SD (Observations) & \num{0.178} & \num{0.178} & \num{0.178} & \num{0.172} & \num{0.171} & \num{0.171}\\
+\midrule
+N & \num{4130} & \num{4106} & \num{4086} & \num{3154} & \num{3162} & \num{3136}\\
+AIC & \num{1008} & \num{996} & \num{995} & \num{442} & \num{436} & \num{439}\\
+BIC & \num{1046} & \num{1034} & \num{1039} & \num{479} & \num{473} & \num{481}\\
+\bottomrule
+\multicolumn{7}{l}{\rule{0pt}{1em}F: Female, M: Male}\\
+\end{tabular}
+\end{table}
+
+\hypertarget{discussion}{%
+\section{Discussion}\label{discussion}}
+
+As Marsden, Smith, and Hout (2020) notes, abortion attitudes are strongly tied to one's ideological position. This might be the reason why we did not observe an effect of family formation, as it can be the case that ideologically sorted attitudes are hard to change later in life. One potential question is to ask whether these life-course transitions would be effective if we were to analyze relatively younger individuals. The power considerations do not allow us to undertake this in the present work, though it might be possible that marrying early and having a child at a younger age might modulate these results. In any case, though, there seems to be no substantial life-course effect on abortion attitudes, at least in the aggregate.
+
+\hypertarget{references}{%
+\section*{References}\label{references}}
+\addcontentsline{toc}{section}{References}
+
+\hypertarget{refs}{}
+\begin{CSLReferences}{1}{0}
+\leavevmode\vadjust pre{\hypertarget{ref-Allison2009}{}}%
+Allison, Paul David. 2009. \emph{Fixed {Effects} {Regression} {Models}}. Thousand Oaks, CA: SAGE Publications.
+
+\leavevmode\vadjust pre{\hypertarget{ref-Halaby2004}{}}%
+Halaby, Charles N. 2004. {``Panel {Models} in {Sociological} {Research}: {Theory} into {Practice}.''} \emph{Annual Review of Sociology} 30: 507--44.
+
+\leavevmode\vadjust pre{\hypertarget{ref-Hout2016}{}}%
+Hout, Michael, and Orestes P. Hastings. 2016. {``Reliability of the Core Items in the General Social Survey: Estimates from the Three-Wave Panels, 2006--2014.''} \emph{Sociological Science} 3 (43): 971--1002.
+
+\leavevmode\vadjust pre{\hypertarget{ref-KV2020}{}}%
+Kiley, Kevin, and Stephen Vaisey. 2020. {``Measuring {Stability} and {Change} in {Personal} {Culture} {Using} {Panel} {Data}.''} \emph{American Sociological Review} 85 (3): 477--506.
+
+\leavevmode\vadjust pre{\hypertarget{ref-Lersch2023}{}}%
+Lersch, Philipp M. 2023. {``Change in {Personal} {Culture} {Over} the {Life} {Course}.''} \emph{American Sociological Review} 88 (2): 252--83.
+
+\leavevmode\vadjust pre{\hypertarget{ref-Marsden2020}{}}%
+Marsden, Peter V., Tom W. Smith, and Michael Hout. 2020. {``Tracking US Social Change over a Half-Century: The General Social Survey at Fifty.''} \emph{Annual Review of Sociology} 46: 109--34.
+
+\leavevmode\vadjust pre{\hypertarget{ref-Vaisey2017}{}}%
+Vaisey, Stephen, and Andrew Miles. 2017. {``What {You} {Can}---and {Can}'t---{Do} {With} {Three}-{Wave} {Panel} {Data}.''} \emph{Sociological Methods \& Research} 46 (1): 44--67.
+
+\end{CSLReferences}
+
+\end{document}
