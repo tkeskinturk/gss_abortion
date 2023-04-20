@@ -1,7 +1,7 @@
 ---
 title: |
   | Family Formation and Abortion Attitudes:
-  | An Analysis with the GSS Panels
+  | An Analysis with the GSS Panels[^thanks]
 author:
 - Emilio Lopez Horner[^EH]
 - Turgut Keskintürk[^TK]
@@ -24,6 +24,7 @@ library(knitr)
 library(kableExtra)
 ```
 
+[^thanks]: We thank Steve Vaisey for his comments on this project.
 [^EH]: Department of Communications, University of North Carolina, Chapel Hill, `emilio_horner@unc.edu`.
 [^TK]: Department of Sociology, Duke University, `turgut.keskinturk@duke.edu`.
 
