@@ -62,7 +62,7 @@ The $\beta$ coefficients from linear probability models is 0.06 for $EverBirth_3
 Table 1 shows the fixed effects estimates, documenting that there are no substantial effects of first marriage or first birth on abortion attitudes.[^Code] The estimates are imprecise and the effect sizes are highly small, both in female and male samples. The exception is the effect of marriage for male respondents, which is negative and reliably different than 0 at the 95% level, though the effect size is, once again, quite small.[^Int]
 
 [^Code]: Replication code for the analyses can be found at https://github.com/tkeskinturk/gss_abortion.
-[^Int]: In another specification, we estimated within-between models by specifying respondent sex as a cross-level interaction. BIC for the interaction models were lower than the ones without interaction (1425 < 1445 for Birth and 1449 < 1464 for Marriage).
+[^Int]: In another specification, we estimated within-between models by specifying respondent sex as a cross-level interaction. BIC for the interaction models were higher than the ones without interaction (1445 > 1425 for Birth and 1464 > 1449 for Marriage). However, pooling respondents does not change the substantive results presented here.
 
 ```{r reg, fig.pos = "H", fig.align = "center"}
 
