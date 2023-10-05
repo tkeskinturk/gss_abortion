@@ -1,0 +1,105 @@
+---
+title: |
+  | Family Formation and Abortion Attitudes:
+  | An Analysis with the GSS Panels[^thanks]
+author:
+- Emilio Lopez Horner[^EH]
+- Turgut Keskintürk[^TK]
+date: "`r Sys.Date()`"
+output: 
+  bookdown::pdf_document2:
+    keep_tex: true
+    latex_engine: xelatex
+    toc: false
+    number_sections: false
+bibliography: gss-abortion_citations.bib
+abstract: We ask whether having a child or marrying for the first time affects one's attitudinal position on the legality of abortion debate. Using two-way fixed-effects regression models in the 2006-2014 General Social Survey panel data, we show that there is no such effect for women, and only slight effects for men.
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = FALSE, warning = FALSE, message = FALSE)
+library(tidyverse)
+library(broom)
+library(knitr)
+library(kableExtra)
+```
+
+[^thanks]: We thank Steve Vaisey for his comments on this project.
+[^EH]: Department of Communications, University of North Carolina, Chapel Hill, `emilio_horner@unc.edu`.
+[^TK]: Department of Sociology, Duke University, `turgut.keskinturk@duke.edu`.
+
+# Introduction
+
+We ask a simple question: do family formation events affect abortion attitudes? Studies in cultural sociology suggest that personal cultural change, particularly when it comes to core beliefs, is fairly low among adults [@KV2020], though life-course transitions can modulate individual beliefs [@Lersch2023]. One such life transition is family formation, which is probably tied to cultural beliefs about family, sexuality, and morality. If life-course transitions change one's phenomenological understanding of the world, forming a family for the first time might function as an individual treatment.
+
+We focus on the legality of abortion debate, a particularly contentious issue both in the United States and the world. Strongly tied to ideological position, abortion attitudes have remained fairly stable over time in the General Social Survey [@Marsden2020], but we know little about whether biographical experiences such as having a child or marrying for the first time change an individual's abortion attitudes. In this note, we test this question. We expect that the first experiences in family formation (marrying for the first time or having a child for the first time) might change one's beliefs about abortion.
+
+# Data and Measures
+
+To test this expectation, we used three waves of panel data from the General Social Survey (GSS). In 2006, 2008 and 2010, GSS sampled three cohorts of US adults, each of which was a representative sample of the US population, and surveyed these cohorts three times over four years. In all surveys, a set of respondents answered questions about their abortion attitudes, as well as personal demographics, including marriage and parenthood. We pooled these three cohorts together, with a final *N* of 2,790 participants. During these four years, 122 (4.3%) of these respondents reported that they had a child for the first time (answering the question `childs`[^Childs]), while 124 (4.4%) of the respondents reported that they married for the first time. In total, 219 respondents went through a family formation experience (27 of whom reported both first-marriage and first-birth). We recoded these variables such that if a respondent reported first marriage and first birth before, they were counted as such in the subsequent waves.[^Why.]
+
+[^Childs]: The GSS question we used, `childs`, is as follows: How many children have you ever had? Please count all that were born alive at any time (including any you had from a previous marriage).
+[^Why.]: A handful of respondents changed their responses over time (e.g., reporting a child in Wave 1 but not reporting it afterwards). This error might result from various factors. We decided to use all the information we have.
+
+Following Hout and Hastings [-@Hout2016], we constructed an abortion scale by using 7 abortion variables (see `abdefect`, `abhlth`, `abnomore`, `abpoor`, `abrape`, `absingle` and `abany` in the GSS variable set). Similar results replicate if we use the 6-item scale (dropping the `abany` item) or if we just look at the `abany` item (abortion with *any reason*). In what follows, we report the results from this 7-item scale, which ranges from 0 to 1 and higher values indicate pro-choice positions on abortion.
+
+In order to provide a conservative test, we estimated a series of fixed-effects regression models [@Allison2009; @Halaby2004] across two samples, separated as females and males. The payoff from this strategy is that we remove all time-constant variables from our consideration, which allows us to stringently see whether a within-person change in first marriage and first birth facilitates a within-person change in abortion attitudes. The cost is, of course, the reduced statistical efficiency that results from not using the between-person variation. Given that power issues might exacerbate these conservative estimations, we urge that the following results should be seen as highly conservative.
+
+One problem that might contaminate our results is *endogenous selection.* It is possible that one's abortion attitudes might leak through the treatment (e.g., the abortion attitudes at Wave 2 can affect family formation behavior at Wave 3). Following Vaisey and Miles [-@Vaisey2017], we test this assumption by estimating the following models. If there is indeed endogenous selection, we should observe that $\beta$ is reliably different than 0, which would then necessitate that we abandon fixed effects estimation.
+
+$$
+\begin{aligned}
+EverBirth_3 &= \alpha + \beta Abortion_2 + \tau (Abortion_1 + Abortion_2) + \epsilon
+\\
+EverMarry_3 &= \alpha + \beta Abortion_2 + \tau (Abortion_1 + Abortion_2) + \epsilon
+\end{aligned}
+$$
+
+The $\beta$ coefficients from linear probability models is 0.06 for $EverBirth_3$ (95% CI: -0.09, 0.22), and -0.05 for $EverMarry_3$ (95% CI: -0.20, 0.09), showing that there is no specific selection mechanism.
+
+# Results
+
+Table 1 shows the fixed effects estimates, documenting that there are no substantial effects of first marriage or first birth on abortion attitudes.[^Code] The estimates are imprecise and the effect sizes are highly small, both in female and male samples. The exception is the effect of marriage for male respondents, which is negative and reliably different than 0 at the 95% level, though the effect size is, once again, quite small.[^Int]
+
+[^Code]: Replication code for the analyses can be found at https://github.com/tkeskinturk/gss_abortion.
+[^Int]: In another specification, we estimated within-between models by specifying respondent sex as a cross-level interaction. BIC for the interaction models were higher than the ones without interaction (1445 > 1425 for Birth and 1464 > 1449 for Marriage). However, pooling respondents does not change the substantive results presented here.
+
+```{r reg, fig.pos = "H", fig.align = "center"}
+
+library(modelsummary)
+m1_f <- readRDS("../models/m1.RDS")
+m2_f <- readRDS("../models/m2.RDS")
+m3_f <- readRDS("../models/m3.RDS")
+m1_m <- readRDS("../models/m4.RDS")
+m2_m <- readRDS("../models/m5.RDS")
+m3_m <- readRDS("../models/m6.RDS")
+
+modelsummary(
+  models =
+    list(
+      "F: Birth" = m1_f,
+      "F: Marriage" = m2_f,
+      "F: Both" = m3_f,
+      "M: Birth" = m1_m,
+      "M: Marriage" = m2_m,
+      "M: Both" = m3_m
+    ),
+  title = 'Fixed Effects Regression Models Estimating Abortion Attitudes.',
+  notes = "F: Female, M: Male",
+  output = "kableExtra",
+  gof_omit = 'R2 Marg.|R2 Cond.|RMSE',
+  coef_rename = c("everchild" = "Ever-Birth",
+                  "evermarry" = "Ever-Marriage"),
+  gof_map = tibble::tribble(~ raw,        ~ clean,     ~ fmt,
+                            "nobs",      "N",           0,
+                            "aic",       "AIC",         0,
+                            "bic",       "BIC",         0)) |> 
+  kableExtra::kable_styling(latex_options = c("HOLD_position"))
+  
+```
+
+# Discussion
+
+As Marsden, Smith, and Hout [-@Marsden2020] notes, abortion attitudes are strongly tied to one's ideological position. This might be the reason why we did not observe an effect of family formation, as it can be the case that ideologically sorted attitudes are hard to change later in life. One potential question is to ask whether these life-course transitions would be effective if we were to analyze relatively younger individuals. The power considerations do not allow us to undertake this in the present work, though it might be possible that marrying early and having a child at a younger age might modulate these results. In any case, though, there seems to be no substantial life-course effect on abortion attitudes, at least in the aggregate.
+
+# References
